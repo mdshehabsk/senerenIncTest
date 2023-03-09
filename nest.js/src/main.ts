@@ -5,11 +5,12 @@ import { GlobalExceptionFilter } from './exception-filter/global.exception.filte
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
-      origin: 'http://localhost:3000',
+      origin: process.env.CLIENT_URL,
     },
   });
 
   app.useGlobalFilters(new GlobalExceptionFilter());
-  await app.listen(4000);
+  const PORT = process.env.PORT || 4000
+  await app.listen(PORT);
 }
 bootstrap();
